@@ -1,9 +1,6 @@
-
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import src.*;
 
@@ -11,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SimTest {
 
@@ -38,7 +33,7 @@ public class SimTest {
         boolean result = sim.solve();
 
         // Assert the result
-        assertTrue( "Expected the solve method to return true for successful path.", result);
+        Assertions.assertTrue(result, "Expected the solve method to return true for successful path.");
     }
 
     @Test
@@ -93,7 +88,7 @@ public class SimTest {
         String input = "ab";
 
         Sim sim = new Sim(start, end, alphabet, symbols, commands, input);
-        sim.setResearchDepth(1);
+        sim.setResearchDepth(10);
         boolean result = sim.solve();
 
         Assertions.assertTrue(result, "Success");

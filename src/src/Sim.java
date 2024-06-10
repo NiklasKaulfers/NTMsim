@@ -9,13 +9,13 @@ public class Sim{
     public final char EPSILON = 'ε';
     private final String start;
     private final String end;
-    private ArrayList<Command> commands;
+    private final ArrayList<Command> commands;
     private ArrayList<Command> commandsCopy;
-    private ArrayList<String> commandDecisionLog = new ArrayList<>();
-    private ArrayList<String> commandsLog = new ArrayList<>();
+    private final ArrayList<String> commandDecisionLog = new ArrayList<>();
+    private final ArrayList<String> commandsLog = new ArrayList<>();
     private int logIndex;
     private String input;
-    private ArrayList<Character> alphabet;
+    private  ArrayList<Character> alphabet;
     private ArrayList<Character> symbols;
     private Boolean outputTooBig = false;
     private int researchDepth = 10;
@@ -58,14 +58,26 @@ public class Sim{
         commandsLog.clear();
         commandsLog.add(" ");
 
-
+        boolean returnVal = false;
         for (int i =0; i < researchDepth; i++) {
-            boolean returnVal = calc(start, 0);
+            commandsLog.add("");
+            logIndex++;
+            returnVal = calc(start, 0);
             if (returnVal){
-                return true;
+                break;
             }
         }
-        return false;
+        for (String s : commandsLog) {
+            if (s.length() > 4 && s.endsWith("end")){
+                s = s + "-> TRUE";
+            } else {
+                if (s.length() > 1) {
+                    s = s + "-> FALSE";
+                }
+            }
+            System.out.println(s);
+        }
+        return returnVal;
     }
 
     /**
