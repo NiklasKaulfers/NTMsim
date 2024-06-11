@@ -31,7 +31,7 @@ public class SimTest {
 
         // Call the method to be tested
         boolean result = sim.solve();
-
+        System.out.println(sim.getLog());
         // Assert the result
         Assertions.assertTrue(result, "Expected the solve method to return true for successful path.");
     }
@@ -56,6 +56,7 @@ public class SimTest {
         // Call the method to be tested
         boolean result = sim.solve();
 
+        System.out.println(sim.getLog());
         // Assert the result
         assertFalse(result, "Expected the solve method to return false for unsuccessful path.");
     }
@@ -90,7 +91,7 @@ public class SimTest {
         Sim sim = new Sim(start, end, alphabet, symbols, commands, input);
         sim.setResearchDepth(10);
         boolean result = sim.solve();
-
+        System.out.println(sim.getLog());
         Assertions.assertTrue(result, "Success");
     }
     @Test
@@ -124,6 +125,8 @@ public class SimTest {
         Sim sim = new Sim(start, end, alphabet, symbols, commands, input);
         sim.setResearchDepth(1);
         boolean result = sim.solve();
+
+        System.out.println(sim.getLog());
 
         Assertions.assertTrue(result, "Success");
     }

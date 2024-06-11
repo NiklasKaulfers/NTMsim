@@ -67,16 +67,7 @@ public class Sim{
                 break;
             }
         }
-        for (String s : commandsLog) {
-            if (s.length() > 4 && s.endsWith("end")){
-                s = s + "-> TRUE";
-            } else {
-                if (s.length() > 1) {
-                    s = s + "-> FALSE";
-                }
-            }
-            System.out.println(s);
-        }
+        updateLog();
         return returnVal;
     }
 
@@ -89,8 +80,13 @@ public class Sim{
      * @return if the input is part of given grammar
      */
     private boolean calc(String currentCommandName, int posIndex){
-        commandsLog.set(logIndex, commandsLog.get(logIndex) + " " + currentCommandName);
-        boolean result = false;
+        if (commandsLog.get(logIndex).isEmpty()){
+            commandsLog.set(logIndex, currentCommandName);
+        } else{
+            commandsLog.set(logIndex, commandsLog.get(logIndex) + " -> " + currentCommandName);
+        }
+
+        boolean result;
         int finalPosIndex = posIndex;
 
         ArrayList<Command> possibleCommands = new ArrayList<>((
@@ -170,5 +166,30 @@ public class Sim{
      */
     public void setResearchDepth(int researchDepth){
         this.researchDepth = researchDepth;
+    }
+
+    /**
+     * adds a true if the programm terminates and false if it doesn't
+     */
+    public void updateLog(){
+        for (int i =0; i < commandsLog.size(); i++){
+            String s = commandsLog.get(i);
+            if (!(s.equals(" "))
+                    && !(s.isEmpty())){
+                if (s.endsWith(end)){
+                    commandsLog.set(i, s + " -> TRUE");
+                } else {
+                    commandsLog.set(i, s + " -> FALSE");
+                }
+            }
+        }
+    }
+
+    /**
+     * returns the entire log
+     * @return an ArrayList of all Log entries
+     */
+    public ArrayList<String> getLog(){
+        return commandsLog;
     }
 }
