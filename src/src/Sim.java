@@ -175,7 +175,9 @@ public class Sim{
         for (int i =0; i < commandsLog.size(); i++){
             String s = commandsLog.get(i);
             if (!(s.equals(" "))
-                    && !(s.isEmpty())){
+                    && !(s.isEmpty())
+                    && !(s.endsWith("TRUE"))
+                    && !(s.endsWith("FALSE"))){
                 if (s.endsWith(end)){
                     commandsLog.set(i, s + " -> TRUE");
                 } else {
