@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
+
 public class SimTest {
 
     @Test
@@ -86,10 +87,16 @@ public class SimTest {
         commands.add(command6);
         commands.add(command7);
 
+        Command command8 = new Command(start, 'a' , "qFail", 'a', Direction.RIGHT);
+        Command command9 = new Command("qFail", 'a', "qFail2", 'a', Direction.RIGHT);
+        Command command10 = new Command("qFail2", 'b', "qFail", 'a' , Direction.RIGHT);
+        commands.add(command8);
+        commands.add(command9);
+        commands.add(command10);
         String input = "ab";
 
         Sim sim = new Sim(start, end, alphabet, symbols, commands, input);
-        sim.setResearchDepth(10);
+        sim.setResearchDepth(3);
         boolean result = sim.solve();
         System.out.println(sim.getLog());
         Assertions.assertTrue(result, "Success");
