@@ -1,7 +1,7 @@
 <h1>simple non deterministic turing machine simulator</h1><br>
 
 <h2>syntax:</h2>
-here is how the syntax would look like replace <br><br>
+here is how the syntax would look like replace the given cariable names with ones you like <br><br>
 .init: <br>
 start: <u>your start</u>; <br>
 end: <u>your end</u>; <br>
