@@ -35,16 +35,26 @@ public class Parser{
      * @throws NTMSimError reading errors (for processing or display)
      */
     public Parser(File inputFile) throws NTMSimError, IOException {
-        if (inputFile.getName().endsWith(".txt")){
-            System.out.println("Success");
-        } else {
+        if (!inputFile.getName().endsWith(".txt")){
             throw new NTMSimError("can only read .txt files (file is not .txt)");
         }
-        BufferedReader br;
+        if (!inputFile.exists()){
+            throw new NTMSimError("can't find .txt file");
+        }
+
+        BufferedReader br = null;
         try{
             br = new BufferedReader(new FileReader(inputFile));
         } catch (FileNotFoundException e) {
             throw new NTMSimError("can't open file (file not found)");
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    throw new NTMSimError("can't close file (file not found)");
+                }
+            }
         }
         StringBuilder stringBuilder = new StringBuilder();
         String s;
@@ -60,6 +70,7 @@ public class Parser{
      */
     public void parse() throws NTMSimError {
         simDefLoops = 0;
+        // removes all whitespaces
         input = input.replaceAll("\\s+", "");
         inputCopy = input;
         if (inputCopy.startsWith(".init:")){

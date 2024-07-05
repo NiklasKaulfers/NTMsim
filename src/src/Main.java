@@ -1,9 +1,11 @@
-import src.*;
+package src;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws NTMSimError {
-        String in = ".init: start:q; end: q2; alphabet: a,b; symbols: a,b,c; .code: q,a,q1,a, >; q1,b,q2,b,>;";
-        Parser p = new Parser(in);
+    public static void main(String[] args) throws NTMSimError, IOException {
+        Parser p = new Parser(new File("TestText.txt"));
         p.parse();
         Sim s = p.getSim();
         s.setInput("ab");
