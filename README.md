@@ -1,4 +1,4 @@
-<h3>simple non deterministic turing machine simulator</h3><br><br>
+<h>simple non deterministic turing machine simulator</h><br><br>
 
 <h2>syntax:</h2><br>
 the order in init or in code doesnt matter, but the .init part has to come before the .code part <br>
