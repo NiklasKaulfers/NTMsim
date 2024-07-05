@@ -16,9 +16,9 @@ the size of the alphabet or the symbols doesnt matter, should be bigger then 1 t
 in code u have to create the commands for each situationhere is also recommeneded a size of atleast 2 so it does smth <br>
 whitespaces can be placed however you want to, the parser will remove them within itself anyways <br>
 <br> 
-example : .init: start:q; end: q2; alphabet: a,b; symbols: a,b,c; .code: q,a,q1,a, >; q1,b,q2,b,>;<br>
-thiw works <br>
-.init: ; symbols: a,b,c <br>
+example : <br><br> .init: start:q; end: q2; alphabet: a,b; symbols: a,b,c; .code: q,a,q1,a, >; q1,b,q2,b,>;<br><br>
+this works <br>
+<br>.init: ; symbols: a,b,c <br>
   end: q2; alphabet: a,b; start: q; .code: q, <br>
   a,q1,a, >; q1,b,q2,b,>; <br>
   <br>
