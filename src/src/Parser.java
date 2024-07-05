@@ -7,14 +7,14 @@ import java.util.ArrayList;
  * takes a txt file and makes Commands out of it
  */
 public class Parser{
-    String input;
-    String inputCopy;
+    private String input;
+    private String inputCopy;
 
-    String start;
-    String end;
-    ArrayList<Character> alphabet;
-    ArrayList<Character> symbols;
-    ArrayList<Command> commands;
+    private String start;
+    private String end;
+    private ArrayList<Character> alphabet;
+    private ArrayList<Character> symbols;
+    private ArrayList<Command> commands;
 
     private int simDefLoops = 0;
     private Sim grammar;
@@ -42,26 +42,16 @@ public class Parser{
             throw new NTMSimError("can't find .txt file");
         }
 
-        BufferedReader br = null;
-        try{
-            br = new BufferedReader(new FileReader(inputFile));
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String s;
+            while ((s = br.readLine()) != null) {
+                stringBuilder.append(s);
+            }
+            input = stringBuilder.toString();
         } catch (FileNotFoundException e) {
             throw new NTMSimError("can't open file (file not found)");
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    throw new NTMSimError("can't close file (file not found)");
-                }
-            }
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        String s;
-        while ((s = br.readLine()) != null){
-            stringBuilder.append(s);
-        }
-        input = stringBuilder.toString();
     }
 
     /**
@@ -222,13 +212,13 @@ public class Parser{
      * finds the index of the next comma
      * @return Integer of the index
      */
-    private int findNextComma(){
+    private int findNextComma() throws NTMSimError {
         for (int i = 0; i < inputCopy.length(); i++){
             if (inputCopy.charAt(i) == ','){
                 return i;
             }
         }
-        return -1;
+        throw new NTMSimError("Code expects a comma.");
     }
 
     /**
