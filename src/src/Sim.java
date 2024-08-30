@@ -146,7 +146,7 @@ public class Sim{
                         + currentCommand.getReplaceChar()
                         + input.substring(posIndex+1);
                 posIndex = findNextPosition(currentCommand, posIndex);
-                result = calc(currentCommand.getNextCommand(), posIndex);
+                result = calc(currentCommand.getNextCommandName(), posIndex);
             } else {
                 return false;
             }
@@ -168,11 +168,11 @@ public class Sim{
                 currentCommand = possibleCommands.get((int) v);
                 commandDecisionLog.add(posIndex + currentCommand.getName());
                 posIndex = findNextPosition(currentCommand, posIndex);
-                result = calc(currentCommand.getNextCommand(), posIndex);
+                result = calc(currentCommand.getNextCommandName(), posIndex);
             }
         }
 
-        if (currentCommand.getNextCommand().equals(end)){
+        if (currentCommand.getNextCommandName().equals(end)){
             input = input.substring(0, posIndex) + currentCommand.getReplaceChar() + input.substring(posIndex+1);
             return true;
         }

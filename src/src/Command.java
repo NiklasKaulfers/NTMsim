@@ -6,13 +6,13 @@ package src;
 public class Command {
     String name;
     char currentChar;
-    String nextCommand;
+    String nextCommandName;
     char replaceChar;
     Direction direction;
-    public Command(String name, char currentChar, String nextCommand, char replaceChar, Direction direction) {
+    public Command(String name, char currentChar, String nextCommandName, char replaceChar, Direction direction) {
         this.name = name;
         this.currentChar = currentChar;
-        this.nextCommand = nextCommand;
+        this.nextCommandName = nextCommandName;
         this.replaceChar = replaceChar;
         this.direction = direction;
     }
@@ -29,8 +29,8 @@ public class Command {
      * getter for the next Command that will get executed
      * @return the name of the Command
      */
-    public String getNextCommand() {
-        return nextCommand;
+    public String getNextCommandName() {
+        return nextCommandName;
     }
 
     /**
