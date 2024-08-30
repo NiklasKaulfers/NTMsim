@@ -49,7 +49,7 @@ public class Parser{
                 stringBuilder.append(s);
             }
             input = stringBuilder.toString();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException _) {
             throw new NTMSimError("can't open file (file not found)");
         }
     }
