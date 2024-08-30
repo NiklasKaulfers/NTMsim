@@ -5,6 +5,9 @@ import src.Sim;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * opens the sim
+ */
 public class Main {
     public static void main(String[] args) throws NTMSimError, IOException {
         File f = new File("TestText.txt");
@@ -29,7 +32,7 @@ public class Main {
         s.setInput("ab");
         boolean a = s.solve();
         System.out.println("a: " + a);
-        System.out.println(p.getStart() + ": " + p.getEnd());
+        System.out.println(s.getLog());
 
     }
 }

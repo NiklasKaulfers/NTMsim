@@ -87,7 +87,6 @@ public class Sim{
                         || symbols.isEmpty()
                         || commands.isEmpty()
                         || input.isEmpty()
-                        || input == null
                         || start.isEmpty()
                         || end.isEmpty()
         ){
@@ -132,31 +131,21 @@ public class Sim{
         }
 
         boolean result;
-        int finalPosIndex = posIndex;
 
+        int finalPosIndex1 = posIndex;
         ArrayList<Command> possibleCommands = new ArrayList<>((
                 commandsCopy.stream().filter(c -> c.getName().equals(currentCommandName)
-                && c.getCurrentChar() == input.charAt(finalPosIndex)).collect(Collectors.toList())));
+                && c.getCurrentChar() == input.charAt(finalPosIndex1)).collect(Collectors.toList())));
         Command currentCommand;
         if (possibleCommands.isEmpty()){
             return false;
         } else if (possibleCommands.size() == 1){
             currentCommand = possibleCommands.getFirst();
             if (currentCommand.currentChar == input.charAt(posIndex)){
-                input = input.substring(0, posIndex) + currentCommand.getReplaceChar() + input.substring(posIndex+1);
-                if (currentCommand.getDirection().equals(Direction.LEFT)) {
-                    posIndex--;
-                    if (posIndex < 0) {
-                        input = DEFAULT_BLANK_SPACE + input;
-                        posIndex = 0;
-                    }
-                }
-                if (currentCommand.getDirection().equals(Direction.RIGHT)){
-                    posIndex ++;
-                    if (posIndex >= input.length()){
-                        input = input + DEFAULT_BLANK_SPACE;
-                    }
-                }
+                input = input.substring(0, posIndex)
+                        + currentCommand.getReplaceChar()
+                        + input.substring(posIndex+1);
+                posIndex = findNextPosition(currentCommand, posIndex);
                 result = calc(currentCommand.getNextCommand(), posIndex);
             } else {
                 return false;
@@ -167,32 +156,19 @@ public class Sim{
                 return false;
             } else {
                 for (int i = 0; i < possibleCommands.size(); i++){
-                    int finalPosIndex1 = posIndex;
                     // substring 1 = commandName
                     // substring 0, 1 = index
                     int finalI = i;
-                    if (commandDecisionLog.stream().anyMatch(cd-> cd.equals(finalPosIndex1 + possibleCommands.get(finalI).getName()))){
+                    int finalPosIndex = posIndex;
+                    if (commandDecisionLog.stream().anyMatch(cd-> cd.equals(finalPosIndex + possibleCommands.get(finalI).getName()))){
                         possibleCommands.remove(i);
                     }
                 }
                 double v = (double) possibleCommands.size() * (Math.random());
                 currentCommand = possibleCommands.get((int) v);
                 commandDecisionLog.add(posIndex + currentCommand.getName());
-                if (currentCommand.getDirection().equals(Direction.LEFT)) {
-                    posIndex--;
-                    if (posIndex < 0) {
-                        input = DEFAULT_BLANK_SPACE + input;
-                        posIndex = 0;
-                    }
-                }
-                if (currentCommand.getDirection().equals(Direction.RIGHT)){
-                    posIndex ++;
-                    if (posIndex >= input.length()){
-                        input = input + DEFAULT_BLANK_SPACE;
-                    }
-                }
+                posIndex = findNextPosition(currentCommand, posIndex);
                 result = calc(currentCommand.getNextCommand(), posIndex);
-
             }
         }
 
@@ -238,6 +214,29 @@ public class Sim{
     }
 
     /**
+     * moves the TM based on the current commands Direction
+     * adds blanks to not run into null pointer exceptions when reading
+     * @param currentCommand the Command being used
+     * @param posIndex the index of the input where the TM is at
+     * @return posIndex
+     */
+    private int findNextPosition(Command currentCommand, int posIndex){
+        if (currentCommand.getDirection().equals(Direction.LEFT)) {
+            posIndex--;
+            if (posIndex < 0) {
+                input = DEFAULT_BLANK_SPACE + input;
+                posIndex = 0;
+            }
+        } else if (currentCommand.getDirection().equals(Direction.RIGHT)){
+            posIndex ++;
+            if (posIndex >= input.length()){
+                input = input + DEFAULT_BLANK_SPACE;
+            }
+        }
+        return posIndex;
+    }
+
+    /**
      * returns the entire log
      * @return an ArrayList of all Log entries
      */
@@ -271,45 +270,6 @@ public class Sim{
     }
 
     /**
-     * deletes all currently saved commands
-     */
-    public void deleteAllCommands(){
-        commands.clear();
-    }
-
-    /**
-     * adds 1 new command
-     * @param c the new Command
-     */
-    public void addCommand(Command c){
-        commands.add(c);
-    }
-
-    /**
-     * changes Commands to this
-     * @param commands the new Commands
-     */
-    public void setCommands(ArrayList<Command> commands){
-        this.commands = commands;
-    }
-
-    /**
-     * changes the start point
-     * @param start new start point
-     */
-    public void setStart(String start){
-        this.start = start;
-    }
-
-    /**
-     * changes the name of the end
-     * @param end new end point
-     */
-    public void setEnd(String end){
-        this.end = end;
-    }
-
-    /**
      * getter for input
      * @return String of input
      */
@@ -323,5 +283,13 @@ public class Sim{
      */
     public ArrayList<Boolean> getSuccessLog(){
         return successLog;
+    }
+
+    /**
+     * returns the entire log of all Commands executed
+     * @return for each attempt the order of the commands being executed
+     */
+    public ArrayList<ArrayList<Command>> getFullLog(){
+        return fullLog;
     }
 }

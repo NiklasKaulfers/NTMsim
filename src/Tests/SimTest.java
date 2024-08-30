@@ -21,7 +21,7 @@ public class SimTest {
         ArrayList<Character> symbols = new ArrayList<>(Arrays.asList('X', 'Y', 'Z'));
 
         // Create commands
-        Command command1 = new Command("start", 'a', "middle", 'X', Direction.RIGHT);
+        Command command1 = new Command(start, 'a', "middle", 'X', Direction.RIGHT);
         Command command2 = new Command("middle", 'b', end, 'Y', Direction.STAY);
         ArrayList<Command> commands = new ArrayList<>(Arrays.asList(command1, command2));
 
@@ -101,7 +101,11 @@ public class SimTest {
         System.out.println(sim.getLog());
         Assertions.assertTrue(result, "Success");
     }
+
+
     @Test
+    // this test should return fail or succeed randomly
+    // reason: research depth = 1 and there are 2 ways the TM could use
     public void testSolve_SeveralPaths_Copy(){
         // this is a TM for 2 chars
         // it shows "XOR" as an "AND" or "OR"
@@ -133,8 +137,7 @@ public class SimTest {
         sim.setResearchDepth(1);
         boolean result = sim.solve();
 
-        System.out.println(sim.getLog());
-
+        System.out.println("This test should fail 50% of the times: " + sim.getLog());
         Assertions.assertTrue(result, "Success");
     }
 }
