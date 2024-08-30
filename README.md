@@ -7,11 +7,12 @@ implementation of a GUI representing runs and allowing changes <br>
 the TestText.txt file contains example code, replace whats in there with ur code and it will run <br>
 
 <h2>how to install</h2>
-use: <br>
+requires jdk-22+ <br>
+in .../NTMsim/src use: <br>
 javac *.java <br>
 java Main <br><br>
 if something goes wrong or it shows a file is missing just compile that file with: <br>
-javac MissingFile.java<br><br>
+javac MissingFile.java<br>
 
 
 
