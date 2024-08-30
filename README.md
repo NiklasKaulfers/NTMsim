@@ -1,7 +1,18 @@
 <h1>simple non deterministic turing machine simulator</h1><br>
 
+<h2>TODO:</h2>
+implementation of Epsilon <br>
+implementation of a GUI representing runs and allowing changes <br>
 <h2>what to change</h2>
 the TestText.txt file contains example code, replace whats in there with ur code and it will run <br>
+
+<h2>how to install</h2>
+use: <br>
+javac *.java <br>
+java Main <br><br>
+if something goes wrong or it shows a file is missing just compile that file with: <br>
+javac MissingFile.java<br><br>
+
 
 
 <h2>syntax:</h2>
